@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PASS GEN</string>
+    <string name="pass">Password</string>
+    <string name="genr">Generate</string>
+    <string name="cp">Copy</string>
+    <string name="pass_lenght">Set Password Lenght</string>
+</resources>
