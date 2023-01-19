@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         btn_copy = findViewById(R.id.btn_copy);
         txb_charlenght = findViewById(R.id.txb_charlength);
 
+
+        
         btn_generate.setOnClickListener(v -> {
 
            // int length = 20;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Text Copied",Toast.LENGTH_SHORT).show();
         });
     }
+
 
     public String GetPassword(int length){
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();

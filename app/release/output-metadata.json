@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.java_pass_gen",
+  "applicationId": "com.thewanderingfox.passgen",
   "variantName": "release",
   "elements": [
     {
