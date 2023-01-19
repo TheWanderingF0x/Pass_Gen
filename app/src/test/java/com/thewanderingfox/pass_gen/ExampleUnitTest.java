@@ -1,4 +1,4 @@
-package com.example.java_pass_gen;
+package com.thewanderingfox.pass_gen;
 
 import org.junit.Test;
 

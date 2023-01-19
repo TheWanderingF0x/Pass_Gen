@@ -1,20 +1,22 @@
-package com.example.java_pass_gen;
+package com.thewanderingfox.pass_gen;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ClipData;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.ClipboardManager;
 import android.widget.Toast;
-
-import java.util.Scanner;
 import java.util.Random;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,18 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus){
+            }
+        });
+
+
+        AdManagerAdView adView = new AdManagerAdView(this);
+        adView.setAdSizes(AdSize.BANNER);
+        adView.setAdUnitId("/6499/example/banner");
+        // TODO: Add adView to your view hierarchy.
+        mAdView = findViewById(R.id.adManagerAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         tv_password = (TextView)findViewById(R.id.tv_password);
         btn_generate = (Button)findViewById(R.id.btn_generate);
         btn_copy = (Button)findViewById(R.id.btn_copy);
         txb_charlenght = (EditText)findViewById(R.id.txb_charlength);
+
 
         btn_generate.setOnClickListener(new View.OnClickListener() {
             @Override

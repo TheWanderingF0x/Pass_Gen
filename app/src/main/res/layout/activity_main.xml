@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,7 +19,7 @@
         android:layout_marginRight="10dp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:hint="Enter number between 10-1000"
+        android:hint="@string/enter_number_between_10_1000"
         android:importantForAutofill="no"
         android:inputType="number"
         tools:ignore="TextContrastCheck" />
@@ -66,5 +66,16 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="150dp"
         android:text="@string/cp" />
+
+    <com.google.android.gms.ads.admanager.AdManagerAdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adManagerAdView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="/6499/example/banner">
+    </com.google.android.gms.ads.admanager.AdManagerAdView>
 
 </RelativeLayout>
