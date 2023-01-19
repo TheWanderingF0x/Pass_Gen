@@ -1,22 +1,19 @@
 package com.thewanderingfox.pass_gen;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.content.ClipboardManager;
 import android.widget.Toast;
-import java.util.Random;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.admanager.AdManagerAdView;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,71 +24,52 @@ public class MainActivity extends AppCompatActivity {
 
     private ClipboardManager myClipboard;
     private ClipData myClip;
-    private AdView mAdView;
 
+    @SuppressLint("VisibleForTests")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus){
-            }
+        MobileAds.initialize(this, initializationStatus -> {
         });
-
 
         AdManagerAdView adView = new AdManagerAdView(this);
         adView.setAdSizes(AdSize.BANNER);
         adView.setAdUnitId("/6499/example/banner");
-        // TODO: Add adView to your view hierarchy.
-        mAdView = findViewById(R.id.adManagerAdView);
+
+        AdView mAdView = findViewById(R.id.adManagerAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        tv_password = findViewById(R.id.tv_password);
+        btn_generate = findViewById(R.id.btn_generate);
+        btn_copy = findViewById(R.id.btn_copy);
+        txb_charlenght = findViewById(R.id.txb_charlength);
 
-        tv_password = (TextView)findViewById(R.id.tv_password);
-        btn_generate = (Button)findViewById(R.id.btn_generate);
-        btn_copy = (Button)findViewById(R.id.btn_copy);
-        txb_charlenght = (EditText)findViewById(R.id.txb_charlength);
+        btn_generate.setOnClickListener(v -> {
 
+           // int length = 20;
 
-        btn_generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            String value= txb_charlenght.getText().toString();
+            int length =Integer.parseInt(value);
 
-               // int length = 20;
+            tv_password.setText(GetPassword(length));
 
-                String value= txb_charlenght.getText().toString();
-                int length =Integer.parseInt(value);
-
-                tv_password.setText(GetPassword(length));
-
-            }
         });
 
-        btn_copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_copy.setOnClickListener(v -> {
 
-                myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                String text;
-                text = tv_password.getText().toString();
+            myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+            String text;
+            text = tv_password.getText().toString();
 
-                myClip = ClipData.newPlainText("text", text);
-                myClipboard.setPrimaryClip(myClip);
+            myClip = ClipData.newPlainText("text", text);
+            myClipboard.setPrimaryClip(myClip);
 
-                Toast.makeText(getApplicationContext(), "Text Copied",Toast.LENGTH_SHORT).show();
-
-            }
+            Toast.makeText(getApplicationContext(), "Text Copied",Toast.LENGTH_SHORT).show();
         });
-
     }
-
-    public static boolean isNumeric(String lenght){
-        return lenght != null && lenght.matches("[-+]?\\d*\\.?\\d+");
-    }
-
 
     public String GetPassword(int length){
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
@@ -103,12 +81,6 @@ public class MainActivity extends AppCompatActivity {
             char c = chars[rand.nextInt(chars.length)];
             stringBuilder.append(c);
         }
-
-
         return stringBuilder.toString();
     }
-
-
-
-
 }
